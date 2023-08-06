@@ -1,26 +1,27 @@
 package com.edson.worshopmongo.resources;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edson.worshopmongo.domain.User;
+import com.edson.worshopmongo.services.UserService;
 
 @RestController
 @RequestMapping(value="/users")
 public class UserResource {
 	
+	@Autowired
+	private UserService service;
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity <List<User>> findAll(){
-		User maria = new User("1", "maria silva", "maria@");
-		User alex = new User("2", "alex borges", "alex@");
-		List<User> list = new ArrayList<>();
-		list.addAll(Arrays.asList(maria,alex));
+		
+		List<User> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 
